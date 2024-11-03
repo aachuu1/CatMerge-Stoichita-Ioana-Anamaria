@@ -31,6 +31,8 @@ add_executable(CatMerge main.cpp
         Cat.h
         Boundary.cpp
         Boundary.h
+        Game.cpp
+        Game.h
 )
 
 target_include_directories(CatMerge SYSTEM PRIVATE ${raylib_INCLUDE_DIRS})
