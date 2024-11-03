@@ -21,7 +21,7 @@ void Game::Run() {
         DrawTextEx(font, "Next", {460, 175}, 38, 2, BLACK);
         DrawRectangleRounded({425, 55, 170, 60}, 0.3, 6, PINK);
         DrawRectangleRounded({425, 215, 170, 180}, 0.3, 6, PINK);
-        boundary.Draw();
+        Boundary::Draw();
         for (auto& cat : cats) {
             cat.Draw();
             cat.Update();

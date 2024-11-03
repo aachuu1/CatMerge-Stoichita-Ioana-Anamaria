@@ -1,11 +1,12 @@
+#pragma once
 
 class Boundary {
-    int x_margine;
-    int y_margine;
+    int x_margine{};
+    int y_margine{};
 public:
     Boundary();
     ~Boundary();
-    void Draw();
-    void Depasire();
+    static void Draw();
+    void Depasire() const;
 };
 
