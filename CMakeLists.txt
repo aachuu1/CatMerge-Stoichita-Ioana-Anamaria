@@ -27,6 +27,10 @@ else()
 endif()
 
 add_executable(CatMerge main.cpp
+        Cat.cpp
+        Cat.h
+        Boundary.cpp
+        Boundary.h
 )
 
 target_include_directories(CatMerge SYSTEM PRIVATE ${raylib_INCLUDE_DIRS})
