@@ -37,7 +37,7 @@ add_executable(CatMerge main.cpp
         Score.h
 )
 
-target_include_directories(CatMerge SYSTEM PRIVATE ${raylib_INCLUDE_DIRS})
+target_include_directories(CatMerge SYSTEM PRIVATE ${raylib_SOURCE_DIR})
 
 target_link_libraries(CatMerge PRIVATE ${LIB1})
 
