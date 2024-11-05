@@ -2,9 +2,9 @@
 #include <iostream>
 #include <raylib.h>
 
-Cat::Cat() : x(200), y(10), radius(20), speed(5), gravity(3), isFalling(false) {}
-Cat::Cat(const Cat& other) : x(other.x), y(other.y), radius(other.radius), speed(other.speed), gravity(other.gravity), isFalling(other.isFalling) {
-    std::cout<<"Const cop";
+Cat::Cat() : x(200), y(10), gravity(3), speed(5), radius(20), isFalling(false) {}
+Cat::Cat(const Cat& other) : x(other.x), y(other.y), gravity(other.gravity), speed(other.speed), radius(other.radius), isFalling(other.isFalling) {
+    std::cout<<"Constuctor copiere pisica"<<std::endl;
 }
 Cat &Cat::operator=(const Cat &other) {
     this->x = other.x;
@@ -13,7 +13,7 @@ Cat &Cat::operator=(const Cat &other) {
     this->speed = other.speed;
     this->gravity = other.gravity;
     this->isFalling = other.isFalling;
-    std::cout<<"Cat::operator="<<std::endl;
+    std::cout<<"Operator ="<<std::endl;
     return *this;
 }
 
@@ -76,5 +76,8 @@ void Cat::Update() {
         }
     }
 }
-
+std::ostream& operator<<(std::ostream& os, const Cat& cat) {
+    os << "Pisica_x: " << cat.x;
+    return os;
+}
 

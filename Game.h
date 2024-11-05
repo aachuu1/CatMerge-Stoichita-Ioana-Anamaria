@@ -22,6 +22,7 @@ public:
     Game(const Game&&) = delete;
     Game& operator=(const Game&&) = delete;
     Game& operator=(const Game&) = delete;
-
     Score GetScore();
+    Cat GetCat();
+    Boundary GetBoundary();
 };

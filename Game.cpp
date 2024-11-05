@@ -1,4 +1,5 @@
 #include "Game.h"
+#include <iostream>
 #include "Boundary.h"
 
 Game* Game::instance = nullptr;
@@ -23,6 +24,7 @@ Game& Game::GetInstance() {
 Game::~Game() {
     UnloadFont(font);
     CloseWindow();
+    std::cout<<"Jocul s-a terminat :("<<std::endl;
 }
 
 void Game::Run() {
@@ -54,4 +56,10 @@ void Game::Run() {
 }
 Score Game::GetScore() {
     return this->score;
+}
+Cat Game::GetCat() {
+    return this->originalCat;
+}
+Boundary Game::GetBoundary() {
+    return this->boundary;
 }

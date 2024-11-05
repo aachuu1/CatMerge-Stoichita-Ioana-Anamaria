@@ -1,9 +1,11 @@
 #pragma once
+#include <ostream>
 
 class Cat{
-    float x,y, gravity;
+    int x,y;
+    float gravity;
     float speed;
-    float radius;
+    int radius;
     bool isFalling=false;
 
 public:
@@ -18,6 +20,7 @@ public:
     void setX(int newX);
     void setY(int newY);
     [[nodiscard]] bool hasReachedGround() const;
+    friend std::ostream& operator<<(std::ostream& os, const Cat& cat);
 };
 
 

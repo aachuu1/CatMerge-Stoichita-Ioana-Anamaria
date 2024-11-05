@@ -5,6 +5,7 @@
 #include <raylib.h>
 
 Boundary::Boundary() = default;
+
 Boundary::~Boundary(){
     std::cout << "Boundary-ul a fost distrus" << std::endl;
 }
@@ -18,4 +19,9 @@ void Boundary::Depasire() const {
     if(pisica.getX()>x_margine&&pisica.getY()>y_margine) {
         DrawText("Pisica a depasit linia!", 10, 10, 20, RED);
     }
+}
+
+std::ostream& operator<<(std::ostream& os, const Boundary& boundary) {
+    os << "X_margine: " <<boundary.x_margine;
+    return os;
 }

@@ -9,6 +9,6 @@ class Score {
     explicit Score(int score=0);
     ~Score();
     void UpdateScore(int points);
-    void DrawScore();
+    void DrawScore() const;
     friend std::ostream& operator<<(std::ostream& os, const Score& score);
 };
