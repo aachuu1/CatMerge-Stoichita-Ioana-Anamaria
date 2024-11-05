@@ -1,9 +1,8 @@
 #include "Score.h"
 #include "raylib.h"
 
-Score::Score() : score(0) {
-    font = LoadFontEx("Font/monogram.ttf", 64, nullptr, 0);
-}
+Score::Score() : score(0), font(LoadFontEx("Font/monogram.ttf", 64, nullptr, 0)) {}
+
 Score::~Score() {
     UnloadFont(font);
 }
