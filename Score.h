@@ -11,4 +11,7 @@ class Score {
     void UpdateScore(int points);
     void DrawScore() const;
     friend std::ostream& operator<<(std::ostream& os, const Score& score);
+    int getScore() const {
+        return score;
+    };
 };

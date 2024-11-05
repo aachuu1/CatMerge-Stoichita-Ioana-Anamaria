@@ -1,7 +1,7 @@
 #include "Game.h"
 #include <iostream>
 #include "Boundary.h"
-
+#include "Cat.h"
 Game* Game::instance = nullptr;
 
 Game::Game() : originalCat(), constructorCopiedCat(originalCat), operatorCopiedCat(originalCat) {
@@ -24,7 +24,6 @@ Game& Game::GetInstance() {
 Game::~Game() {
     UnloadFont(font);
     CloseWindow();
-    std::cout<<"Jocul s-a terminat :("<<std::endl;
 }
 
 void Game::Run() {
@@ -54,12 +53,23 @@ void Game::Run() {
         EndDrawing();
     }
 }
-Score Game::GetScore() {
+
+Score Game::GetScore() const {
     return this->score;
 }
-Cat Game::GetCat() {
+
+Cat Game::GetCat() const {
     return this->originalCat;
 }
-Boundary Game::GetBoundary() {
+
+Boundary Game::GetBoundary() const {
     return this->boundary;
+}
+
+std::ostream& operator<<(std::ostream& os, const Game& game) {
+    os << "Scor curent: " << game.score.getScore() << "\n";
+    os << "Pisica originala: " << game.originalCat.getX() << "\n";
+    os << "Pisica copiata prin constructor: " << game.constructorCopiedCat.getX() << "\n";
+    os << "Pisica copiata prin operator: " << game.operatorCopiedCat.getX()  << "\n";
+    return os;
 }

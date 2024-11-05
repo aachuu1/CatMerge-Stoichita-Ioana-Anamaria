@@ -3,6 +3,7 @@
 #include <raylib.h>
 
 Cat::Cat() : x(200), y(10), gravity(3), speed(5), radius(20), isFalling(false) {}
+
 Cat::Cat(const Cat& other) : x(other.x), y(other.y), gravity(other.gravity), speed(other.speed), radius(other.radius), isFalling(other.isFalling) {
     std::cout<<"Constuctor copiere pisica"<<std::endl;
 }
