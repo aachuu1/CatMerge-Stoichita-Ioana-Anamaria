@@ -6,6 +6,7 @@ cppcheck --enable=all \
     -i"${BUILD_DIR:-build}" --suppress="*:${BUILD_DIR:-build}/*" \
     -i"${EXT_DIR:-ext}" --suppress="*:${EXT_DIR:-ext}/*" \
     -i"${GEN_DIR:-generated}" --suppress="*:${GEN_DIR:-generated}/*" \
+    --check-level=exhaustive \
     --suppress=missingIncludeSystem \
     --suppress=unusedFunction \
     --suppress=unmatchedSuppression \
