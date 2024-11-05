@@ -40,3 +40,10 @@ add_executable(CatMerge main.cpp
 target_include_directories(CatMerge SYSTEM PRIVATE ${raylib_INCLUDE_DIRS})
 
 target_link_libraries(CatMerge PRIVATE ${LIB1})
+
+install(TARGETS CatMerge DESTINATION ${DESTINATION_DIR})
+if (APPLE)
+    install(FILES launcher.command DESTINATION ${DESTINATION_DIR})
+endif ()
+
+include(cmake/CopyHelper.cmake)

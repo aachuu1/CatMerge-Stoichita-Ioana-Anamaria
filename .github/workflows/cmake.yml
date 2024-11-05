@@ -183,6 +183,15 @@ jobs:
       - name: Install packages
         uses: ./.github/actions/install-packages
 
+      - name: Install necessary libraries
+        run: |
+          if [[ "${{ matrix.os }}" == "Linux" ]]; then
+            sudo apt-get update
+            sudo apt-get install -y libxrandr-dev
+          elif [[ "${{ matrix.os }}" == "macOS" ]]; then
+            brew install libxrandr
+          fi
+
       - name: Configure CMake
         uses: ./.github/actions/configure-cmake
         with:
