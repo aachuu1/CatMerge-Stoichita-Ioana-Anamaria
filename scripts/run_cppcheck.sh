@@ -7,7 +7,7 @@ cppcheck --enable=all \
     -i"${EXT_DIR:-ext}" --suppress="*:${EXT_DIR:-ext}/*" \
     -i"${GEN_DIR:-generated}" --suppress="*:${GEN_DIR:-generated}/*" \
     --suppress=missingIncludeSystem \
-    --suppress==unusedFunction \
+    --suppress=unusedFunction \
     --suppress=unmatchedSuppression \
     --suppress=useStlAlgorithm \
     --error-exitcode=1
