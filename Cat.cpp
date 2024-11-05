@@ -77,8 +77,5 @@ void Cat::Update() {
         }
     }
 }
-std::ostream& operator<<(std::ostream& os, const Cat& cat) {
-    os << "Pisica_x: " << cat.x;
-    return os;
-}
+
 

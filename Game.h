@@ -3,7 +3,7 @@
 #include <raylib.h>
 #include "Boundary.h"
 #include "Score.h"
-
+#include <ostream>
 class Game{
     static Game* instance;
     Font font{};
@@ -22,15 +22,12 @@ public:
     Game(const Game&&) = delete;
     Game& operator=(const Game&&) = delete;
     Game& operator=(const Game&) = delete;
-    Score GetScore();
-    Cat GetCat();
-    Boundary GetBoundary();
-    Score GetScore() const;
-    Cat GetCat() const;
-    Boundary GetBoundary() const;
+    [[nodiscard]] Score GetScore() const;
+    [[nodiscard]] Cat GetCat() const;
+    [[nodiscard]] Boundary GetBoundary() const;
 
-    float GetOriginalCatX() const { return originalCat.getX(); }
-    float GetConstructorCopiedCatX() const { return constructorCopiedCat.getX(); }
-    float GetOperatorCopiedCatX() const { return operatorCopiedCat.getX(); }
+    [[nodiscard]] float GetOriginalCatX() const { return originalCat.getX(); }
+    [[nodiscard]] float GetConstructorCopiedCatX() const { return constructorCopiedCat.getX(); }
+    [[nodiscard]] float GetOperatorCopiedCatX() const { return operatorCopiedCat.getX(); }
     friend std::ostream& operator<<(std::ostream& os, const Game& game);
 };

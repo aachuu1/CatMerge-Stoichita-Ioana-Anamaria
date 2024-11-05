@@ -1,6 +1,5 @@
 #pragma once
 #include "raylib.h"
-#include <ostream>
 
 class Score {
     int score;
@@ -10,8 +9,7 @@ class Score {
     ~Score();
     void UpdateScore(int points);
     void DrawScore() const;
-    friend std::ostream& operator<<(std::ostream& os, const Score& score);
-    int getScore() const {
+    [[nodiscard]] int getScore() const {
         return score;
     };
 };

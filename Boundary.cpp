@@ -21,7 +21,3 @@ void Boundary::Depasire() const {
     }
 }
 
-std::ostream& operator<<(std::ostream& os, const Boundary& boundary) {
-    os << "X_margine: " <<boundary.x_margine;
-    return os;
-}

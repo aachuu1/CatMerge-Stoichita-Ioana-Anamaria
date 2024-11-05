@@ -14,7 +14,3 @@ void Score::UpdateScore(int points) {
     score = 0;
     score += points;
 }
-std::ostream& operator<<(std::ostream& os, const Score& score) {
-    os << "Score: " << score.score;
-    return os;
-}

@@ -1,5 +1,4 @@
 #pragma once
-#include <ostream>
 
 class Cat{
     int x,y;
@@ -20,7 +19,6 @@ public:
     void setX(int newX);
     void setY(int newY);
     [[nodiscard]] bool hasReachedGround() const;
-    friend std::ostream& operator<<(std::ostream& os, const Cat& cat);
 };
 
 
