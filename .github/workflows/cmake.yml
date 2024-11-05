@@ -185,10 +185,10 @@ jobs:
 
       - name: Install necessary libraries
         run: |
-          if [[ "${{ matrix.os }}" == "Linux" ]]; then
+          if [[ "${{ matrix.os }}" == "ubuntu-22.04" ]]; then
             sudo apt-get update
             sudo apt-get install -y libxrandr-dev
-          elif [[ "${{ matrix.os }}" == "macOS" ]]; then
+          elif [[ "${{ matrix.os }}" == "macos-14" ]]; then
             brew install libxrandr
           fi
 
