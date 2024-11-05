@@ -1,7 +1,10 @@
-#include "Game.h"
 #include <iostream>
+#include "Score.h"
+#include "Game.h"
 
 int main() {
-    Game::GetInstance().Run();
+    Game &game = Game::GetInstance();
+    game.Run();
+    std::cout << game.GetScore() << std::endl;
     return 0;
 }

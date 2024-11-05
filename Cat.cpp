@@ -20,14 +20,16 @@ void Cat::setY(int newY) {
     y = newY;
 }
 
-Cat::~Cat() = default;
+Cat::~Cat() {
+    std::cout << "Pisica a explodat" << std::endl;
+};
 
 bool Cat::hasReachedGround() const {
     return y == 600 - radius;
 }
 
 void Cat::Draw() const {
-    DrawCircle(x, y, radius, PINK);
+    DrawCircle( x, y, radius, PINK);
 }
 
 void Cat::Update() {
