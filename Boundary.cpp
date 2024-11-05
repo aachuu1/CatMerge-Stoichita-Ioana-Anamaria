@@ -1,6 +1,7 @@
 #include "Boundary.h"
 #include "Cat.h"
 #include <raylib.h>
+
 Boundary::Boundary() = default;
 Boundary::~Boundary() = default;
 void Boundary::Draw() {

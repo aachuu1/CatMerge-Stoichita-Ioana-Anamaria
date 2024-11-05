@@ -21,6 +21,7 @@ bool Cat::hasReachedGround() const {
 void Cat::Draw() const {
     DrawCircle(x, y, radius, PINK);
 }
+
 void Cat::Update() {
     bool ajunsSol = (y >= 600 - radius);
     if (!ajunsSol) {

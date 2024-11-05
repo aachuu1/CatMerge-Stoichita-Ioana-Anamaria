@@ -1,5 +1,6 @@
 #include "Game.h"
 
+
 Game* Game::instance = nullptr;
 Game& Game::GetInstance(){
     if(instance==nullptr){
@@ -22,10 +23,9 @@ void Game::Run() {
         DrawRectangleRounded({425, 55, 170, 60}, 0.3, 6, PINK);
         DrawRectangleRounded({425, 215, 170, 180}, 0.3, 6, PINK);
         Boundary::Draw();
-        for (auto& cat : cats) {
-            cat.Draw();
-            cat.Update();
-        }
+        Cat cats;
+        cats.Draw();
+        cats.Update();
         EndDrawing();
     }
 }

@@ -3,16 +3,15 @@
 #include "Boundary.h"
 #include "Cat.h"
 
-class Game {
+class Game{
     static Game* instance;
     Font font{};
-    std::vector<Cat> cats;
+    Cat cats;
     Boundary boundary;
-    Game() {
+    Game(){
         InitWindow(600, 600, "CatMerge");
         SetTargetFPS(60);
         font = LoadFontEx("Font/monogram.ttf", 64, nullptr, 0);
-        cats.emplace_back();
     }
 public:
     static Game& GetInstance();
