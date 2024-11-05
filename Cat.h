@@ -8,7 +8,8 @@ class Cat{
 
 public:
     Cat();
-    Cat(const Cat& other) : x(200), y(10), gravity(3), speed(5), radius(30), isFalling(other.isFalling) {};
+    Cat(const Cat& other);
+    Cat& operator=(const Cat& other);
     ~Cat();
     void Draw() const;
     void Update();

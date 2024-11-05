@@ -10,7 +10,8 @@ class Game{
     Boundary boundary;
     Score score;
     Cat originalCat;
-    Cat copiedCat;
+    Cat constructorCopiedCat;
+    Cat operatorCopiedCat;
     Game();
     ~Game();
 

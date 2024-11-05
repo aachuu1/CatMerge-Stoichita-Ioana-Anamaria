@@ -3,6 +3,19 @@
 #include <raylib.h>
 
 Cat::Cat() : x(200), y(10), radius(20), speed(5), gravity(3), isFalling(false) {}
+Cat::Cat(const Cat& other) : x(other.x), y(other.y), radius(other.radius), speed(other.speed), gravity(other.gravity), isFalling(other.isFalling) {
+    std::cout<<"Const cop";
+}
+Cat &Cat::operator=(const Cat &other) {
+    this->x = other.x;
+    this->y = other.y;
+    this->radius = other.radius;
+    this->speed = other.speed;
+    this->gravity = other.gravity;
+    this->isFalling = other.isFalling;
+    std::cout<<"Cat::operator="<<std::endl;
+    return *this;
+}
 
 int Cat::getX() const {
     return x;

@@ -3,12 +3,14 @@
 
 Game* Game::instance = nullptr;
 
-Game::Game() : originalCat(), copiedCat(originalCat) {
+Game::Game() : originalCat(), constructorCopiedCat(originalCat), operatorCopiedCat(originalCat) {
     InitWindow(600, 600, "CatMerge");
     SetTargetFPS(60);
     font = LoadFontEx("Font/monogram.ttf", 64, nullptr, 0);
-    copiedCat.setX(300);
-    copiedCat.setY(10);
+    constructorCopiedCat.setX(300);
+    constructorCopiedCat.setY(10);
+    operatorCopiedCat.setX(300);
+    operatorCopiedCat.setY(10);
 }
 
 Game& Game::GetInstance() {
@@ -35,11 +37,16 @@ void Game::Run() {
         originalCat.Update();
         score.DrawScore();
         if (originalCat.hasReachedGround()) {
-            copiedCat.Draw();
-            copiedCat.Update();
+            constructorCopiedCat.Draw();
+            constructorCopiedCat.Update();
             score.UpdateScore(100);
         }
-        if (copiedCat.hasReachedGround()) {
+        if (constructorCopiedCat.hasReachedGround()) {
+            score.UpdateScore(100);
+            operatorCopiedCat.Draw();
+            operatorCopiedCat.Update();
+        }
+        if (operatorCopiedCat.hasReachedGround()) {
             score.UpdateScore(100);
         }
         EndDrawing();

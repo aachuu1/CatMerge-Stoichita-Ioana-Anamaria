@@ -1,8 +1,6 @@
 #include "Boundary.h"
-
 #include <iostream>
 #include <ostream>
-
 #include "Cat.h"
 #include <raylib.h>
 
