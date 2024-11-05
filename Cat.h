@@ -14,6 +14,8 @@ public:
     void Update();
     [[nodiscard]] int getX() const;
     [[nodiscard]] int getY() const;
+    void setX(int newX);
+    void setY(int newY);
     [[nodiscard]] bool hasReachedGround() const;
 };
 

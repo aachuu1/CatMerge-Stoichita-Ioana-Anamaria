@@ -12,6 +12,14 @@ int Cat::getY() const {
     return y;
 }
 
+void Cat::setX(int newX) {
+    x = newX;
+}
+
+void Cat::setY(int newY) {
+    y = newY;
+}
+
 Cat::~Cat() = default;
 
 bool Cat::hasReachedGround() const {
