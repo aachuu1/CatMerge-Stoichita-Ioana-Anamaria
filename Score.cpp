@@ -10,7 +10,9 @@ Score::~Score() {
 void Score::DrawScore() const {
     DrawTextEx(font, TextFormat("%d", score), {500, 70}, 38, 2, BLACK);
 }
+void Score::SetScore() {
+    score=0;
+}
 void Score::UpdateScore(int points) {
-    score = 0;
     score += points;
 }

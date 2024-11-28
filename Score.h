@@ -6,6 +6,7 @@ class Score {
     Font font{};
     public:
     explicit Score(int score=0);
+    void SetScore();
     ~Score();
     void UpdateScore(int points);
     void DrawScore() const;
