@@ -4,20 +4,6 @@
 
 Cat::Cat() : x(200), y(10), gravity(3), speed(5), radius(20), isFalling(false) {}
 
-Cat::Cat(const Cat& other) : x(other.x), y(other.y), gravity(other.gravity), speed(other.speed), radius(other.radius), isFalling(other.isFalling) {
-    std::cout<<"Constuctor copiere pisica"<<std::endl;
-}
-Cat &Cat::operator=(const Cat &other) {
-    this->x = other.x;
-    this->y = other.y;
-    this->radius = other.radius;
-    this->speed = other.speed;
-    this->gravity = other.gravity;
-    this->isFalling = other.isFalling;
-    std::cout<<"Operator ="<<std::endl;
-    return *this;
-}
-
 int Cat::getX() const {
     return x;
 }

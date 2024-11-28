@@ -42,6 +42,7 @@ add_executable(CatMerge main.cpp
         Game.h
         Score.cpp
         Score.h
+        main.cpp
 )
 
 target_include_directories(CatMerge SYSTEM PRIVATE ${raylib_SOURCE_DIR}/src)

@@ -4,14 +4,14 @@
 #include "Boundary.h"
 #include "Score.h"
 #include <ostream>
+#include <vector>
 class Game{
     static Game* instance;
     Font font{};
     Boundary boundary;
     Score score;
-    Cat originalCat;
-    Cat constructorCopiedCat;
-    Cat operatorCopiedCat;
+    std::vector<Cat> cats;
+    int lastSpawnTime;
     Game();
     ~Game();
 
@@ -25,9 +25,4 @@ public:
     [[nodiscard]] Score GetScore() const;
     [[nodiscard]] Cat GetCat() const;
     [[nodiscard]] Boundary GetBoundary() const;
-
-    [[nodiscard]] float GetOriginalCatX() const { return originalCat.getX(); }
-    [[nodiscard]] float GetConstructorCopiedCatX() const { return constructorCopiedCat.getX(); }
-    [[nodiscard]] float GetOperatorCopiedCatX() const { return operatorCopiedCat.getX(); }
-    friend std::ostream& operator<<(std::ostream& os, const Game& game);
 };

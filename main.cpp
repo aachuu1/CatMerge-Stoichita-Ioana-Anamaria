@@ -8,7 +8,6 @@ int main() {
     cat2=cat1;
     Boundary boundary;
     Score score;
-    std::cout << game;
     game.Run();
     return 0;
 }

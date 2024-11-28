@@ -6,11 +6,9 @@ class Cat{
     float speed;
     int radius;
     bool isFalling=false;
-
+    bool active=true;
 public:
     Cat();
-    Cat(const Cat& other);
-    Cat& operator=(const Cat& other);
     ~Cat();
     void Draw() const;
     void Update();
