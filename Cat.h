@@ -1,22 +1,31 @@
 #pragma once
+#include <exception>
+#include <stdexcept>
+#include <string>
+
+#include "raylib.h"
 
 class Cat{
-    int x,y;
+protected:
     float gravity;
     float speed;
-    int radius;
     bool isFalling=false;
     bool active=true;
+    int index;
 public:
+    int x,y;
+    int radius;
     Cat();
-    ~Cat();
-    void Draw() const;
-    void Update();
+    virtual ~Cat();
+    virtual void Draw();
+    virtual void Update();
     [[nodiscard]] int getX() const;
     [[nodiscard]] int getY() const;
+    [[nodiscard]] int getRadius() const;
     void setX(int newX);
     void setY(int newY);
     [[nodiscard]] bool hasReachedGround() const;
+
 };
 
 

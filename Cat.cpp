@@ -2,7 +2,7 @@
 #include <iostream>
 #include <raylib.h>
 
-Cat::Cat() : x(200), y(10), gravity(3), speed(5), radius(20), isFalling(false) {}
+Cat::Cat() : x(200), y(10), gravity(3), speed(5), radius(20), isFalling(false), index(1) {}
 
 int Cat::getX() const {
     return x;
@@ -11,6 +11,11 @@ int Cat::getX() const {
 int Cat::getY() const {
     return y;
 }
+
+int Cat::getRadius() const {
+    return radius;
+}
+
 
 void Cat::setX(int newX) {
     x = newX;
@@ -28,7 +33,7 @@ bool Cat::hasReachedGround() const {
     return y == 600 - radius;
 }
 
-void Cat::Draw() const {
+void Cat::Draw() {
     DrawCircle( x, y, radius, PINK);
 }
 
@@ -63,5 +68,7 @@ void Cat::Update() {
         }
     }
 }
+
+
 
 

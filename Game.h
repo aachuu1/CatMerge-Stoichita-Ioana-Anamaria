@@ -1,28 +1,46 @@
 #pragma once
-#include "Cat.h"
+
 #include <raylib.h>
+#include <vector>
+#include <memory>
+#include <random>
+
+#include "Cat.h"
 #include "Boundary.h"
 #include "Score.h"
-#include <ostream>
-#include <vector>
-class Game{
-    static Game* instance;
-    Font font{};
-    Boundary boundary;
-    Score score;
-    std::vector<Cat> cats;
-    int lastSpawnTime;
-    Game();
-    ~Game();
+#include "CatPandispan.h"
+#include "CatHoratiu.h"
+#include "CatPedro.h"
+
+// Clasa singleton Game care gestionează logica principală a jocului
+class Game {
+private:
+    static Game* instance;         // Instanță singleton
+    Font font{};                   // Font pentru afișarea textelor
+    Boundary boundary;             // Obiect pentru limitele jocului
+    Score score;                   // Obiect pentru gestionarea scorului
+    std::vector<std::unique_ptr<Cat>> cats; // Vector de pisici
+    int lastSpawnTime{};           // Timpul ultimei generări de pisici
+
+    Game();                        // Constructor privat
+    ~Game();                       // Destructor
+
+    void CheckForInvalidKeyPress();          // Verifică apăsările greșite de taste
+    void UpdateCats();                       // Actualizează comportamentul pisicilor
+    void AddNewCat();                        // Adaugă o nouă pisică
+    void DrawUI() const;                     // Desenează interfața grafică a jocului
 
 public:
-    static Game& GetInstance();
-    void Run();
+    // Prevenirea copierei sau mutării instanței
     Game(const Game&) = delete;
-    Game(const Game&&) = delete;
-    Game& operator=(const Game&&) = delete;
     Game& operator=(const Game&) = delete;
-    [[nodiscard]] Score GetScore() const;
-    [[nodiscard]] Cat GetCat() const;
-    [[nodiscard]] Boundary GetBoundary() const;
+    Game(Game&&) = delete;
+    Game& operator=(Game&&) = delete;
+
+    static Game& GetInstance();              // Returnează instanța singleto
+    void Run();                              // Rulează bucla principală a jocului
+
+    [[nodiscard]] Score GetScore() const;    // Returnează scorul curent
+    [[nodiscard]] Boundary GetBoundary() const; // Returnează limitele jocului
 };
+

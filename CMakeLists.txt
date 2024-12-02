@@ -43,6 +43,16 @@ add_executable(CatMerge main.cpp
         Score.cpp
         Score.h
         main.cpp
+        Combination.cpp
+        Combination.h
+        CatPedro.cpp
+        CatPedro.h
+        CatPedro.h
+        CatPandispan.cpp
+        CatPandispan.h
+        CatPandispan.h
+        CatHoratiu.cpp
+        CatHoratiu.h
 )
 
 target_include_directories(CatMerge SYSTEM PRIVATE ${raylib_SOURCE_DIR}/src)
