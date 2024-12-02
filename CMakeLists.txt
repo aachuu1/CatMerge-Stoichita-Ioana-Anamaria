@@ -53,6 +53,8 @@ add_executable(CatMerge main.cpp
         CatPandispan.h
         CatHoratiu.cpp
         CatHoratiu.h
+        Exceptions.cpp
+        Exceptions.h
 )
 
 target_include_directories(CatMerge SYSTEM PRIVATE ${raylib_SOURCE_DIR}/src)

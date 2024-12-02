@@ -1,22 +1,18 @@
 #include "Game.h"
 #include <random>
-#include <stdexcept>
-
-class InvalidKeyException : public std::exception {
-public:
-    const char* what() const noexcept override {
-        return "Oh no, you pressed the wrong key!";
-    }
-};
+#include "CatHoratiu.h"
+#include "CatPedro.h"
+#include "CatPandispan.h"
+#include "Exceptions.h"
 
 Game* Game::instance = nullptr;
-
 
 Game::Game() {
     InitWindow(600, 600, "CatMerge");
     SetTargetFPS(60);
     font = LoadFontEx("Font/monogram.ttf", 64, nullptr, 0);
-    cats.push_back(std::make_unique<Cat>());
+    CheckFontLoaded();
+    cats.push_back(std::make_unique<CatPedro>());
     lastSpawnTime = GetTime();
 }
 
@@ -25,7 +21,6 @@ Game::~Game() {
     CloseWindow();
 }
 
-
 Game& Game::GetInstance() {
     if (instance == nullptr) {
         instance = new Game();
@@ -33,24 +28,31 @@ Game& Game::GetInstance() {
     return *instance;
 }
 
-
 void Game::Run() {
     while (!WindowShouldClose()) {
         try {
             CheckForInvalidKeyPress();
-
             BeginDrawing();
             ClearBackground(WHITE);
-
             DrawUI();
             UpdateCats();
             score.DrawScore();
-
+            CheckNoKeyPress();
             EndDrawing();
-        } catch (const InvalidKeyException& ex) {
+        } catch (const FontNotDetectedException& ex) {
+            BeginDrawing();
+            ClearBackground(RED);
+            std::cout<<ex.what();
+            EndDrawing();
+        }catch (const InvalidKeyException& ex1) {
+            BeginDrawing();
+            ClearBackground(RED);
+            DrawText(ex1.what(), 100, 300, 20, BLACK);
+            EndDrawing();
+        } catch (const KeyNotFoundException& ex2) {
             BeginDrawing();
             ClearBackground(WHITE);
-            DrawText(ex.what(), 100, 300, 20, BLACK);
+            DrawText(ex2.what(), 100, 300, 10, BLACK);
             EndDrawing();
         }
     }
@@ -63,16 +65,21 @@ void Game::CheckForInvalidKeyPress() {
         }
     }
 }
+void Game::CheckNoKeyPress() {
+    if (!IsKeyDown(KEY_LEFT) && !IsKeyDown(KEY_RIGHT)) {
+        throw KeyNotFoundException();
+    }
+}
+void Game::CheckFontLoaded() {
+    if(font.texture.id==0) {
+        throw FontNotDetectedException();
+    }
+}
 
 void Game::UpdateCats() {
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<> dis(0, 3);
-
     for (int i = 0; i < cats.size(); i++) {
         cats[i]->Update();
         cats[i]->Draw();
-
         if (cats[i]->hasReachedGround()) {
             if (i == cats.size() - 1) {
                 AddNewCat();
@@ -85,24 +92,20 @@ void Game::UpdateCats() {
 void Game::AddNewCat() {
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<> dis(0, 3);
-
+    std::uniform_int_distribution<> dis(0, 2);
     switch (dis(gen)) {
         case 0:
-            cats.push_back(std::make_unique<Cat>());
-            break;
-        case 1:
             cats.push_back(std::make_unique<CatPedro>());
-            break;
-        case 2:
+        break;
+        case 1:
             cats.push_back(std::make_unique<CatPandispan>());
-            break;
-        case 3:
+        break;
+        case 2:
             cats.push_back(std::make_unique<CatHoratiu>());
-            break;
+        break;
         default:
-            cats.push_back(std::make_unique<Cat>());
-            break;
+            cats.push_back(std::make_unique<CatPedro>());
+        break;
     }
 }
 
@@ -110,7 +113,7 @@ void Game::DrawUI() const {
     DrawRectangleRounded({415, 0, 300, 600}, 0, 6, LIGHTGRAY);
     DrawTextEx(font, "Score", {460, 15}, 38, 2, BLACK);
     DrawRectangleRounded({425, 55, 170, 60}, 0.3, 6, PINK);
-    DrawText(("Număr pisici: " + std::to_string(cats.size())).c_str(), 10, 10, 20, BLACK);
+    DrawText(("Numar pisici: " + std::to_string(cats.size())).c_str(), 10, 10, 20, BLACK);
     Boundary::Draw();
 }
 

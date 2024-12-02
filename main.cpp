@@ -3,9 +3,6 @@
 
 int main() {
     Game &game = Game::GetInstance();
-    Cat cat1;
-    Cat cat2;
-    cat2=cat1;
     Boundary boundary;
     Score score;
     game.Run();
