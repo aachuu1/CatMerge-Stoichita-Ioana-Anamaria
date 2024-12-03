@@ -39,3 +39,8 @@ void CatPedro::Update(){
 void CatPedro::ShowPedro() {
     std::cout<<"The current cat is Pedro"<< std::endl;
 }
+
+bool CatPedro::hasReachedGround() const {
+    return y == 600 - radius_pedro;
+}
+

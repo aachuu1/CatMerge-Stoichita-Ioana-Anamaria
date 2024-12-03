@@ -22,7 +22,7 @@ public:
     [[nodiscard]] int getRadius() const;
     void setX(int newX);
     void setY(int newY);
-    [[nodiscard]] bool hasReachedGround() const;
+    [[nodiscard]] virtual bool hasReachedGround() const =0;
     void ShowInfo() const { PrintInfo(); }
 };
 

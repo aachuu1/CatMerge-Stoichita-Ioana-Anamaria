@@ -12,7 +12,7 @@ public:
     [[nodiscard]] std::shared_ptr<Cat> clone() const override {
         return std::make_shared<CatHoratiu>(*this);
     }
-
+    bool hasReachedGround() const override;
     static void ShowHoratiu();
 protected:
     void PrintInfo() const override {

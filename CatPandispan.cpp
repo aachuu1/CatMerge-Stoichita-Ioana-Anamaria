@@ -39,3 +39,6 @@ void CatPandispan::Update(){
 void CatPandispan::ShowPandispan() {
     std::cout<<"The current cat is Pandispan"<< std::endl;
 }
+bool CatPandispan::hasReachedGround() const {
+    return y==600-radius_pandispan;
+}

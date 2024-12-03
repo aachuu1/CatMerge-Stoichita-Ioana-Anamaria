@@ -12,7 +12,6 @@ private:
     Boundary boundary;
     Score score;
     std::vector<std::unique_ptr<Cat>> cats;
-    int lastSpawnTime{};
     Game();
     ~Game();
     static void CheckForInvalidKeyPress();

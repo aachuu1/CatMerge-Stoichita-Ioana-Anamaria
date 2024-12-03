@@ -13,7 +13,6 @@ Game::Game() {
     font = LoadFontEx("Font/monogram.ttf", 64, nullptr, 0);
     CheckFontLoaded();
     cats.push_back(std::make_unique<CatPedro>());
-    lastSpawnTime = GetTime();
 }
 
 Game::~Game() {
@@ -78,23 +77,23 @@ void Game::CheckFontLoaded() const {
 
 void Game::UpdateCats() {
     for (int i = 0; i < cats.size(); i++) {
-        cats[i]->Update();
         cats[i]->Draw();
+        cats[i]->Update();
         if (cats[i]->hasReachedGround()) {
             if (i == cats.size() - 1) {
                 AddNewCat();
                 score.UpdateScore(200);
             }
         }
-        if (auto pedroCat = dynamic_cast<CatPedro*>(cats[i].get())) {
-            pedroCat->ShowPedro();
-        }
-        if (auto pandsipanCat = dynamic_cast<CatPandispan*>(cats[i].get())) {
-            pandsipanCat->ShowPandispan();
-        }
-        if (auto horatiuCat = dynamic_cast<CatHoratiu*>(cats[i].get())) {
-            horatiuCat->ShowHoratiu();
-        }
+        // if (auto pedroCat = dynamic_cast<CatPedro*>(cats[i].get())) {
+        //     pedroCat->ShowPedro();
+        // }
+        // if (auto pandsipanCat = dynamic_cast<CatPandispan*>(cats[i].get())) {
+        //     pandsipanCat->ShowPandispan();
+        // }
+        // if (auto horatiuCat = dynamic_cast<CatHoratiu*>(cats[i].get())) {
+        //     horatiuCat->ShowHoratiu();
+        // }
     }
 }
 
@@ -122,7 +121,6 @@ void Game::DrawUI() const {
     DrawRectangleRounded({415, 0, 300, 600}, 0, 6, LIGHTGRAY);
     DrawTextEx(font, "Score", {460, 15}, 38, 2, BLACK);
     DrawRectangleRounded({425, 55, 170, 60}, 0.3, 6, PINK);
-    DrawText(("Numar pisici: " + std::to_string(cats.size())).c_str(), 10, 10, 20, BLACK);
     Boundary::Draw();
 }
 

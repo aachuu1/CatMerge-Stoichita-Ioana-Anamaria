@@ -37,6 +37,10 @@ void CatHoratiu::Update(){
     DrawCircle(x ,y ,radius_horatiu, PINK);
 }
 
+bool CatHoratiu::hasReachedGround() const {
+    return y==600-radius_horatiu;
+}
+
 void CatHoratiu::ShowHoratiu() {
     std::cout<<"The current cat is Horatiu"<< std::endl;
 }
