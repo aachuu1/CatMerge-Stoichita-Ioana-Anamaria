@@ -2,7 +2,7 @@
 #include <iostream>
 #include <raylib.h>
 
-Cat::Cat() : x(200), y(10), gravity(3), speed(5), radius(20), isFalling(false), index(1) {}
+Cat::Cat() : gravity(3), speed(5), isFalling(false), index(1), x(200), y(10), radius(20) {}
 
 int Cat::getX() const {
     return x;

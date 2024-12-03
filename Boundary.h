@@ -7,6 +7,5 @@ public:
     Boundary();
     ~Boundary();
     static void Draw();
-    void Depasire() const;
 };
 

@@ -70,7 +70,7 @@ void Game::CheckNoKeyPress() {
         throw KeyNotFoundException();
     }
 }
-void Game::CheckFontLoaded() {
+void Game::CheckFontLoaded() const {
     if(font.texture.id==0) {
         throw FontNotDetectedException();
     }
@@ -90,8 +90,8 @@ void Game::UpdateCats() {
             pedroCat->ShowPedro();
         }
 
-        if (auto pandispanCat = dynamic_cast<CatPandispan*>(cats[i].get())) {
-            pandispanCat->ShowPandispan();
+        if (auto pandsipanCat=dynamic_cast<CatPandispan*>(cats[i].get())) {
+            CatPandispan::ShowPandispan();
         }
 
         if (auto horatiuCat = dynamic_cast<CatHoratiu*>(cats[i].get())) {

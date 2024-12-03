@@ -1,3 +1,4 @@
+#pragma once
 #include <exception>
 
 class InvalidKeyException : public std::exception {
@@ -6,7 +7,7 @@ public:
     [[nodiscard]] const char* what() const noexcept override {
         return "Oh no, you pressed the wrong key!";
     }
-    ~InvalidKeyException() = default;
+    ~InvalidKeyException() override = default;
 };
 
 class KeyNotFoundException : public std::exception {
@@ -15,7 +16,7 @@ class KeyNotFoundException : public std::exception {
     [[nodiscard]] const char* what() const noexcept override {
         return "Oh no, you didn't press any key! Are you sure you want your cat to free-fall?";
     }
-    ~KeyNotFoundException() = default;
+    ~KeyNotFoundException() override = default;
 };
 class FontNotDetectedException : public std::exception {
 public:
@@ -23,5 +24,5 @@ public:
     [[nodiscard]] const char* what() const noexcept override {
         return "Oh no, the font is missing!";
     }
-    ~FontNotDetectedException() = default;
+    ~FontNotDetectedException() override = default;
 };

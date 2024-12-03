@@ -9,10 +9,11 @@ public:
     CatHoratiu() : Cat(), radius_horatiu(40) {}
     void Draw() override;
     void Update() override;
-    std::shared_ptr<Cat> clone() const override {
+    [[nodiscard]] std::shared_ptr<Cat> clone() const override {
         return std::make_shared<CatHoratiu>(*this);
     }
-    void ShowHoratiu();
+
+    static void ShowHoratiu();
 protected:
     void PrintInfo() const override {
         std::cout << "CatPedro Info: Position(" << x << ", " << y << "), Radius: " << radius_horatiu<< "\n";

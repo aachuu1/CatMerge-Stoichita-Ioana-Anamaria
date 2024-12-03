@@ -16,7 +16,7 @@ public:
     virtual ~Cat();
     virtual void Draw() = 0;
     virtual void Update() = 0;
-    virtual std::shared_ptr<Cat> clone() const = 0;
+    [[nodiscard]] virtual std::shared_ptr<Cat> clone() const = 0;
     [[nodiscard]] int getX() const;
     [[nodiscard]] int getY() const;
     [[nodiscard]] int getRadius() const;

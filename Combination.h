@@ -6,6 +6,6 @@ private:
     public:
     Combination();
     ~Combination();
-    bool touching(Cat *c1, Cat *c2);
+    static bool touching(const Cat *c1, const Cat *c2);
 };
 
