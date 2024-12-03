@@ -36,3 +36,6 @@ void CatPandispan::Draw(){
 void CatPandispan::Update(){
     DrawCircle(x ,y ,radius_pandispan, RED);
 }
+void CatPandispan::ShowPandispan() {
+    std::cout<<"The current cat is Pandispan"<< std::endl;
+}

@@ -12,6 +12,7 @@ public:
     std::shared_ptr<Cat> clone() const override {
         return std::make_shared<CatHoratiu>(*this);
     }
+    void ShowHoratiu();
 protected:
     void PrintInfo() const override {
         std::cout << "CatPedro Info: Position(" << x << ", " << y << "), Radius: " << radius_horatiu<< "\n";

@@ -36,3 +36,6 @@ void CatPedro::Draw(){
 void CatPedro::Update(){
     DrawCircle(x,y,radius_pedro, BLUE);
 }
+void CatPedro::ShowPedro() {
+    std::cout<<"The current cat is Pedro"<< std::endl;
+}
