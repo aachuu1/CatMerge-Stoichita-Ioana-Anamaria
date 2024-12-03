@@ -1,42 +1,33 @@
 #include "Cat.h"
 #include <iostream>
 #include <raylib.h>
-
+//constructor
 Cat::Cat() : gravity(3), speed(5), isFalling(false), index(1), x(200), y(10), radius(20) {}
-
+//getter for x
 int Cat::getX() const {
     return x;
 }
-
+//getter for y
 int Cat::getY() const {
     return y;
 }
-
+//getter for radius
 int Cat::getRadius() const {
     return radius;
 }
-
-
-void Cat::setX(int newX) {
-    x = newX;
-}
-
-void Cat::setY(int newY) {
-    y = newY;
-}
-
+//destructor
 Cat::~Cat() {
     std::cout << "Pisica a explodat" << std::endl;
 };
-
+//bool function to determine if the cat has reached ground
 bool Cat::hasReachedGround() const {
     return y == 600 - radius;
 }
-
+//function to draw "cat", a circle for now
 void Cat::Draw() {
     DrawCircle( x, y, radius, PINK);
 }
-
+//function that deals with the cats movement, the left, right and bottom boundaries
 void Cat::Update() {
     bool ajunsSol = (y >= 600 - radius);
     if (!ajunsSol) {

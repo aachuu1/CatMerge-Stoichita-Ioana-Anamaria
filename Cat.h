@@ -1,6 +1,6 @@
 #pragma once
 #include <memory>
-
+//base class for cats
 class Cat{
 protected:
     float gravity;

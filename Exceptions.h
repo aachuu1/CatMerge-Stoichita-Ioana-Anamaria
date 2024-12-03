@@ -1,6 +1,6 @@
 #pragma once
 #include <exception>
-
+//class for invalid key exception
 class InvalidKeyException : public std::exception {
 public:
     InvalidKeyException()=default;
@@ -9,7 +9,7 @@ public:
     }
     ~InvalidKeyException() override = default;
 };
-
+//class for no key pressed exception
 class KeyNotFoundException : public std::exception {
     public:
     KeyNotFoundException()=default;
@@ -18,6 +18,7 @@ class KeyNotFoundException : public std::exception {
     }
     ~KeyNotFoundException() override = default;
 };
+//class for detecting font exception
 class FontNotDetectedException : public std::exception {
 public:
     FontNotDetectedException()=default;
@@ -26,3 +27,5 @@ public:
     }
     ~FontNotDetectedException() override = default;
 };
+
+//all classes are derived from base class exception

@@ -5,6 +5,7 @@
 #include "Boundary.h"
 #include "Score.h"
 #include "CatPedro.h"
+//singleton class for game
 class Game {
 private:
     static Game* instance;

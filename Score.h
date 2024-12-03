@@ -1,6 +1,6 @@
 #pragma once
 #include "raylib.h"
-
+//class for score
 class Score {
     int score;
     Font font{};

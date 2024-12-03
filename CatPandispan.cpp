@@ -1,7 +1,7 @@
 #include <raylib.h>
 #include "CatPandispan.h"
-
-void CatPandispan::Draw(){
+//function that deals with the cats movement, the left, right and bottom boundaries
+void CatPandispan::Update(){
     bool ajunsSol = (y >= 600 - radius_pandispan);
     if (!ajunsSol) {
         if (IsKeyDown(KEY_LEFT)) {
@@ -26,19 +26,21 @@ void CatPandispan::Draw(){
             x = 415 - radius_pandispan;
             isFalling = false;
         }
-        if (x < 40 - radius_pandispan) {
-            x = 40 - radius_pandispan;
+        if (x < 60 - radius_pandispan) {
+            x = 60 - radius_pandispan;
             isFalling = false;
         }
     }
 }
-
-void CatPandispan::Update(){
+//function to draw "cat", a circle for now
+void CatPandispan::Draw(){
     DrawCircle(x ,y ,radius_pandispan, RED);
 }
+//function for dynamic_cast
 void CatPandispan::ShowPandispan() {
     std::cout<<"The current cat is Pandispan"<< std::endl;
 }
+//bool function to determine if the cat has reached ground
 bool CatPandispan::hasReachedGround() const {
     return y==600-radius_pandispan;
 }

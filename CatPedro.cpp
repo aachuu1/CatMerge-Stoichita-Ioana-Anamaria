@@ -1,7 +1,7 @@
 #include <raylib.h>
 #include "CatPedro.h"
-
-void CatPedro::Draw(){
+//function that deals with the cats movement, the left, right and bottom boundaries
+void CatPedro::Update(){
     bool ajunsSol = (y >= 600 - radius_pedro);
     if (!ajunsSol) {
         if (IsKeyDown(KEY_LEFT)) {
@@ -26,20 +26,21 @@ void CatPedro::Draw(){
             x = 415 - radius_pedro;
             isFalling = false;
         }
-        if (x < 40 - radius_pedro) {
-            x = 40 - radius_pedro;
+        if (x < 70 - radius_pedro) {
+            x = 70 - radius_pedro;
             isFalling = false;
         }
     }
 }
-
-void CatPedro::Update(){
+//function to draw "cat", a circle for now
+void CatPedro::Draw(){
     DrawCircle(x,y,radius_pedro, BLUE);
 }
+//function for dynamic_cast
 void CatPedro::ShowPedro() {
     std::cout<<"The current cat is Pedro"<< std::endl;
 }
-
+//bool function to determine if the cat has reached ground
 bool CatPedro::hasReachedGround() const {
     return y == 600 - radius_pedro;
 }
