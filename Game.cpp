@@ -137,3 +137,4 @@ const Score& Game::GetScore() const {
 Boundary Game::GetBoundary() const {
     return boundary;
 }
+
