@@ -29,6 +29,6 @@ public:
     Game& operator=(Game&&) = delete;
     static Game& GetInstance();
     void Run();
-    [[nodiscard]] Score GetScore() const;
+    [[nodiscard]] const Score& GetScore() const;
     [[nodiscard]] Boundary GetBoundary() const;
 };
