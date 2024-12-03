@@ -10,7 +10,7 @@ class Score {
     ~Score();
     void UpdateScore(int points);
     void DrawScore() const;
-    [[nodiscard]] int getScore() const {
+    [[nodiscard]]const int& getScore() const {
         return score;
     };
 };

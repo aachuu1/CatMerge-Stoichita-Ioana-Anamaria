@@ -90,8 +90,8 @@ void Game::UpdateCats() {
             pedroCat->ShowPedro();
         }
 
-        if (auto pandsipanCat=dynamic_cast<CatPandispan*>(cats[i].get())) {
-            CatPandispan::ShowPandispan();
+        if (auto pandsipanCat = dynamic_cast<CatPandispan*>(cats[i].get())) {
+            pandsipanCat->ShowPandispan();
         }
 
         if (auto horatiuCat = dynamic_cast<CatHoratiu*>(cats[i].get())) {

@@ -15,7 +15,6 @@ private:
     int lastSpawnTime{};
     Game();
     ~Game();
-
     static void CheckForInvalidKeyPress();
     static void CheckNoKeyPress();
     void CheckFontLoaded() const;
