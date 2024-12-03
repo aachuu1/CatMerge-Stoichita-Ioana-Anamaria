@@ -126,7 +126,7 @@ void Game::DrawUI() const {
     Boundary::Draw();
 }
 
-Score Game::GetScore() const {
+const Score& Game::GetScore() const {
     return score;
 }
 
