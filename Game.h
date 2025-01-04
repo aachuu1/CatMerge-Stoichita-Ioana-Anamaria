@@ -5,6 +5,8 @@
 #include "Boundary.h"
 #include "Score.h"
 #include "CatPedro.h"
+#include "Combination.h"
+
 //singleton class for game
 class Game {
 private:
@@ -22,12 +24,14 @@ private:
     void AddNewCat();
     void DrawUI() const;
 
+
 public:
     Game(const Game&) = delete;
     Game& operator=(const Game&) = delete;
     Game(Game&&) = delete;
     Game& operator=(Game&&) = delete;
     static Game& GetInstance();
+    Combination comb;
     void Run();
     [[nodiscard]] const Score& GetScore() const;
     [[nodiscard]] Boundary GetBoundary() const;

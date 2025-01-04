@@ -4,7 +4,7 @@
 class Score {
     int score;
     Font font{};
-    public:
+public:
     explicit Score(int score=0);
     void SetScore();
     ~Score();

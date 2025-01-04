@@ -12,7 +12,7 @@ Game::Game() {
     SetTargetFPS(60);
     font = LoadFontEx("Font/monogram.ttf", 64, nullptr, 0);
     CheckFontLoaded();
-    cats.push_back(std::make_unique<CatPedro>());
+    cats.push_back(std::make_unique<CatPedro>(200, 10));
 }
 //destructor to unload the font and close the window
 Game::~Game() {
@@ -28,49 +28,68 @@ Game& Game::GetInstance() {
 }
 //function for game loop and exception handling
 void Game::Run() {
+    enum GameState { MENU, GAMEPLAY };
+    GameState state = MENU;
     while (!WindowShouldClose()) {
         try {
             CheckForInvalidKeyPress();
-            BeginDrawing();
-            ClearBackground(WHITE);
-            DrawUI();
-            UpdateCats();
-            score.DrawScore();
-            CheckNoKeyPress();
-            EndDrawing();
+            if (state == MENU) {
+                BeginDrawing();
+                Texture2D texture = LoadTexture("C:/Users/stoic/CLionProjects/CatMerge-Stoichita-Ioana-Anamaria/CatMergePoate/generated/assets/PhotoStart.png");
+                DrawTexture(texture, 0, 0, WHITE);
+                DrawText("Cat Merge", 100, 90, 80, BLACK);
+                Rectangle startButton = { 200, 200, 170, 45 };
+                Rectangle exitButton = { 200, 260, 170, 45 };
+                Vector2 mousePoint = GetMousePosition();
+
+                Color startColor = CheckCollisionPointRec(mousePoint, startButton) ? GRAY : WHITE;
+                DrawRectangleRounded(startButton, 0.3, 6, startColor);
+                DrawText("START", startButton.x + (startButton.width - MeasureText("START", 20)) / 2,
+                         startButton.y + (startButton.height - 20) / 2, 20, BLACK);
+
+                Color exitColor = CheckCollisionPointRec(mousePoint, exitButton) ? GRAY : WHITE;
+                DrawRectangleRounded(exitButton, 0.3, 6, exitColor);
+                DrawText("EXIT", exitButton.x + (exitButton.width - MeasureText("EXIT", 20)) / 2,
+                         exitButton.y + (exitButton.height - 20) / 2, 20, BLACK);
+
+                if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+                    if (CheckCollisionPointRec(mousePoint, startButton)) {
+                        state = GAMEPLAY;
+                    }
+                    if (CheckCollisionPointRec(mousePoint, exitButton)) {
+                        CloseWindow();
+                    }
+                }
+                EndDrawing();
+            }
+            else if (state == GAMEPLAY) {
+                BeginDrawing();
+                ClearBackground(WHITE);
+                DrawUI();
+                UpdateCats();
+                score.DrawScore();
+                EndDrawing();
+            }
         } catch (const FontNotDetectedException& ex) {
-            //missing font exception
             BeginDrawing();
             ClearBackground(RED);
-            std::cout<<ex.what();
+            std::cout << ex.what();
             EndDrawing();
-        }catch (const InvalidKeyException& ex1) {
-            //invalid key exception
+        } catch (const InvalidKeyException& ex1) {
             BeginDrawing();
             ClearBackground(RED);
             DrawText(ex1.what(), 100, 300, 20, BLACK);
             EndDrawing();
-        } catch (const KeyNotFoundException& ex2) {
-            //no key exception
-            BeginDrawing();
-            ClearBackground(WHITE);
-            DrawText(ex2.what(), 100, 300, 10, BLACK);
-            EndDrawing();
         }
     }
 }
+
 //function for checking if the wrong key is pressed
 void Game::CheckForInvalidKeyPress() {
     for (int key = 0; key < 350; key++) {
         if (IsKeyDown(key) && key != KEY_LEFT && key != KEY_RIGHT) {
             throw InvalidKeyException();
         }
-    }
-}
-//function for checking if no key is pressed
-void Game::CheckNoKeyPress() {
-    if (!IsKeyDown(KEY_LEFT) && !IsKeyDown(KEY_RIGHT)) {
-        throw KeyNotFoundException();
     }
 }
 //function for checking if the font has loaded
@@ -90,6 +109,29 @@ void Game::UpdateCats() {
                 score.UpdateScore(200);
             }
         }
+        for (int j = i + 1; j < cats.size(); j++) {
+            if (abs(cats[i]->getX() - cats[j]->getX()) < (cats[i]->getRadius() + 20) &&
+                abs(cats[i]->getY() - cats[j]->getY()) < (cats[i]->getRadius() + 20) &&
+                cats[i]->GetIndexCat() == cats[j]->GetIndexCat()) {
+                int posX = (cats[i]->getX() + cats[j]->getX()) / 2;
+                int posY = (cats[i]->getY() + cats[j]->getY()) / 2;
+                if (cats[i]->GetIndexCat() == 1) {
+                    cats.erase(cats.begin() + j);
+                    cats.erase(cats.begin() + i);
+                    cats.push_back(std::make_unique<CatPedro>(posX, posY));
+                    score.UpdateScore(100);
+                }
+                else if (cats[i]->GetIndexCat() == 2) {
+                    cats.erase(cats.begin() + j);
+                    cats.erase(cats.begin() + i);
+                    cats.push_back(std::make_unique<CatPandispan>(posX, posY));
+                    score.UpdateScore(100);
+                }
+                break;
+                }
+        }
+}
+
         //needed to use dynamic_cast :p
         // if (auto pedroCat = dynamic_cast<CatPedro*>(cats[i].get())) {
         //     pedroCat->ShowPedro();
@@ -100,8 +142,8 @@ void Game::UpdateCats() {
         // if (auto horatiuCat = dynamic_cast<CatHoratiu*>(cats[i].get())) {
         //     horatiuCat->ShowHoratiu();
         // }
+
     }
-}
 //function to spawn a new cat(we pick a random number from 0 to 2 and based on that number spawn a certain cat).
 void Game::AddNewCat() {
     std::random_device rd;
@@ -109,7 +151,7 @@ void Game::AddNewCat() {
     std::uniform_int_distribution<> dis(0, 2);
     switch (dis(gen)) {
         case 0:
-            cats.push_back(std::make_unique<CatPedro>());
+            cats.push_back(std::make_unique<CatPedro>(200,10));
         break;
         case 1:
             cats.push_back(std::make_unique<CatPandispan>());
@@ -118,14 +160,14 @@ void Game::AddNewCat() {
             cats.push_back(std::make_unique<CatHoratiu>());
         break;
         default:
-            cats.push_back(std::make_unique<CatPedro>());
+            cats.push_back(std::make_unique<CatPedro>(200, 10));
         break;
     }
 }
 //function the game UI, handles boundary also.
 void Game::DrawUI() const {
     DrawRectangleRounded({415, 0, 300, 600}, 0, 6, LIGHTGRAY);
-    DrawTextEx(font, "Score", {460, 15}, 38, 2, BLACK);
+    DrawText("Score", 460, 15, 40, BLACK);
     DrawRectangleRounded({425, 55, 170, 60}, 0.3, 6, PINK);
     Boundary::Draw();
 }

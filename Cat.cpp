@@ -2,7 +2,7 @@
 #include <iostream>
 #include <raylib.h>
 //constructor
-Cat::Cat() : gravity(3), speed(5), isFalling(false), index(1), x(200), y(10), radius(20) {}
+Cat::Cat(int x=200, int y=10) : gravity(3), speed(5), isFalling(false), index_cat(4), x(x), y(y), radius(20) {}
 //getter for x
 int Cat::getX() const {
     return x;
@@ -60,6 +60,8 @@ void Cat::Update() {
     }
 }
 
-
+int Cat::GetIndexCat() const {
+    return index_cat;
+}
 
 

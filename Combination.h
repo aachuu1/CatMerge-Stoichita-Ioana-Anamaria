@@ -3,11 +3,13 @@
 //class for cat combinations
 class Combination {
 private:
+    int plmnushcumsenumeste=5;
     bool CatsTouching=false;
-    public:
+public:
     Combination();
     ~Combination();
     //bool function to determine if the cats are touching (not the right implementation!!)
-    static bool touching(const Cat *c1, const Cat *c2);
+    bool touching(const Cat *c1, const Cat *c2);
+
 };
 

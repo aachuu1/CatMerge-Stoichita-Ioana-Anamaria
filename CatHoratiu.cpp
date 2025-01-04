@@ -44,3 +44,8 @@ bool CatHoratiu::hasReachedGround() const {
 void CatHoratiu::ShowHoratiu() {
     std::cout<<"The current cat is Horatiu"<< std::endl;
 }
+
+int CatHoratiu::GetIndexCat() const {
+    return index_horatiu;
+}
+

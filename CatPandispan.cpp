@@ -44,3 +44,7 @@ void CatPandispan::ShowPandispan() {
 bool CatPandispan::hasReachedGround() const {
     return y==600-radius_pandispan;
 }
+
+int CatPandispan::GetIndexCat() const {
+    return index_pandispan;
+}

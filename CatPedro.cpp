@@ -40,6 +40,11 @@ void CatPedro::Draw(){
 void CatPedro::ShowPedro() {
     std::cout<<"The current cat is Pedro"<< std::endl;
 }
+
+int CatPedro::GetIndexCat() const {
+    return index_pedro;
+}
+
 //bool function to determine if the cat has reached ground
 bool CatPedro::hasReachedGround() const {
     return y == 600 - radius_pedro;

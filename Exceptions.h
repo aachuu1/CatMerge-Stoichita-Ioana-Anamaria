@@ -9,15 +9,6 @@ public:
     }
     ~InvalidKeyException() override = default;
 };
-//class for no key pressed exception
-class KeyNotFoundException : public std::exception {
-    public:
-    KeyNotFoundException()=default;
-    [[nodiscard]] const char* what() const noexcept override {
-        return "Oh no, you didn't press any key! Are you sure you want your cat to free-fall?";
-    }
-    ~KeyNotFoundException() override = default;
-};
 //class for detecting font exception
 class FontNotDetectedException : public std::exception {
 public:
