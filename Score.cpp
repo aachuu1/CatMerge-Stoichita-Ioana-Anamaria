@@ -1,8 +1,8 @@
 #include "Score.h"
 #include <algorithm>
 
-Score::Score(const int score) : score(score) {
-    font = LoadFontEx("Font/monogram.ttf", 64, nullptr, 0);
+Score::Score(const int score) : score(score), font(LoadFontEx("Font/monogram.ttf", 64, nullptr, 0)) {
+
 }
 
 Score::~Score() {
