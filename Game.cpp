@@ -4,8 +4,26 @@
 #include "CatPedro.h"
 #include "CatPandispan.h"
 #include "Exceptions.h"
+
+class GameAchievementObserver : public IScoreObserver {
+private:
+    Font& gameFont;
+public:
+    explicit GameAchievementObserver(Font& font) : gameFont(font) {}
+
+    void OnScoreChanged(int newScore) override {
+        if (newScore >= 3000) {
+            std::cout << "Achievement Unlocked: Master Merger!" << std::endl;
+        }
+        else if (newScore >= 8000) {
+            std::cout << "Achievement Unlocked: Pro Merger!" << std::endl;
+        }
+    }
+};
+
 //static instance pointer
 Game* Game::instance = nullptr;
+
 //constructor to initialize game window, cats and font
 Game::Game() {
     InitWindow(600, 600, "CatMerge");
@@ -13,12 +31,25 @@ Game::Game() {
     font = LoadFontEx("Font/monogram.ttf", 64, nullptr, 0);
     CheckFontLoaded();
     cats.push_back(std::make_unique<CatPedro>(200, 10));
+    achievementObserver = std::make_unique<GameAchievementObserver>(font);
+    score.Attach(achievementObserver.get());
+    gameStats.UpdateStat("TotalCats", 0);
+    gameStats.UpdateStat("TotalMerges", 0);
+    gameStats.UpdateStat("HighScore", 0);
+    catStats.UpdateStat("PedroCreated", 0);
+    catStats.UpdateStat("HoratiuCreated", 0);
+    catStats.IncrementStat("PedroCreated");
+    catStats.UpdateStat("PandispanCreated", 0);
+    catStats.UpdateStat("HoratiuCreated", 0);
 }
+
 //destructor to unload the font and close the window
 Game::~Game() {
+    score.Detach(achievementObserver.get());
     UnloadFont(font);
     CloseWindow();
 }
+
 //function for game instance
 Game& Game::GetInstance() {
     if (instance == nullptr) {
@@ -26,6 +57,7 @@ Game& Game::GetInstance() {
     }
     return *instance;
 }
+
 //function for game loop and exception handling
 void Game::Run() {
     enum GameState { MENU, GAMEPLAY };
@@ -35,7 +67,7 @@ void Game::Run() {
             CheckForInvalidKeyPress();
             if (state == MENU) {
                 BeginDrawing();
-                Texture2D texture = LoadTexture("C:/Users/stoic/CLionProjects/CatMerge-Stoichita-Ioana-Anamaria/CatMergePoate/generated/assets/PhotoStart.png");
+                Texture2D texture = LoadTexture("C:/Users/Ana Stoichita/CLionProjects/CatMerge-Stoichita-Ioana/generated/assets/PhotoStart.png");
                 DrawTexture(texture, 0, 0, WHITE);
                 DrawText("Cat Merge", 100, 90, 80, BLACK);
                 Rectangle startButton = { 200, 200, 170, 45 };
@@ -55,6 +87,7 @@ void Game::Run() {
                 if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
                     if (CheckCollisionPointRec(mousePoint, startButton)) {
                         state = GAMEPLAY;
+                        score.SetScore();
                     }
                     if (CheckCollisionPointRec(mousePoint, exitButton)) {
                         CloseWindow();
@@ -84,7 +117,7 @@ void Game::Run() {
     }
 }
 
-//function for checking if the wrong key is pressed
+
 void Game::CheckForInvalidKeyPress() {
     for (int key = 0; key < 350; key++) {
         if (IsKeyDown(key) && key != KEY_LEFT && key != KEY_RIGHT) {
@@ -92,13 +125,13 @@ void Game::CheckForInvalidKeyPress() {
         }
     }
 }
-//function for checking if the font has loaded
+
 void Game::CheckFontLoaded() const {
     if(font.texture.id==0) {
         throw FontNotDetectedException();
     }
 }
-//function for spawning cats (we spawn cats, update them and then check if the previous cat has reached ground, if it has we spawn a random on).
+
 void Game::UpdateCats() {
     for (int i = 0; i < cats.size(); i++) {
         cats[i]->Draw();
@@ -113,6 +146,7 @@ void Game::UpdateCats() {
             if (abs(cats[i]->getX() - cats[j]->getX()) < (cats[i]->getRadius() + 20) &&
                 abs(cats[i]->getY() - cats[j]->getY()) < (cats[i]->getRadius() + 20) &&
                 cats[i]->GetIndexCat() == cats[j]->GetIndexCat()) {
+                gameStats.IncrementStat("TotalCats");
                 int posX = (cats[i]->getX() + cats[j]->getX()) / 2;
                 int posY = (cats[i]->getY() + cats[j]->getY()) / 2;
                 if (cats[i]->GetIndexCat() == 1) {
@@ -120,31 +154,26 @@ void Game::UpdateCats() {
                     cats.erase(cats.begin() + i);
                     cats.push_back(std::make_unique<CatPedro>(posX, posY));
                     score.UpdateScore(100);
+                    if (score.GetScore() > gameStats.GetStat("HighScore")) {
+                        gameStats.UpdateStat("HighScore", score.GetScore());
+                    }
                 }
                 else if (cats[i]->GetIndexCat() == 2) {
                     cats.erase(cats.begin() + j);
                     cats.erase(cats.begin() + i);
                     cats.push_back(std::make_unique<CatPandispan>(posX, posY));
                     score.UpdateScore(100);
+                    if (score.GetScore() > gameStats.GetStat("HighScore")) {
+                        gameStats.UpdateStat("HighScore", score.GetScore());
+                    }
                 }
                 break;
-                }
+            }
+            CatsTouching(cats[i], cats[j]);
         }
+    }
 }
 
-        //needed to use dynamic_cast :p
-        // if (auto pedroCat = dynamic_cast<CatPedro*>(cats[i].get())) {
-        //     pedroCat->ShowPedro();
-        // }
-        // if (auto pandsipanCat = dynamic_cast<CatPandispan*>(cats[i].get())) {
-        //     pandsipanCat->ShowPandispan();
-        // }
-        // if (auto horatiuCat = dynamic_cast<CatHoratiu*>(cats[i].get())) {
-        //     horatiuCat->ShowHoratiu();
-        // }
-
-    }
-//function to spawn a new cat(we pick a random number from 0 to 2 and based on that number spawn a certain cat).
 void Game::AddNewCat() {
     std::random_device rd;
     std::mt19937 gen(rd());
@@ -152,31 +181,70 @@ void Game::AddNewCat() {
     switch (dis(gen)) {
         case 0:
             cats.push_back(std::make_unique<CatPedro>(200,10));
-        break;
+            gameStats.IncrementStat("TotalCats");
+            break;
         case 1:
             cats.push_back(std::make_unique<CatPandispan>());
-        break;
+            gameStats.IncrementStat("TotalCats");
+            break;
         case 2:
             cats.push_back(std::make_unique<CatHoratiu>());
-        break;
+            gameStats.IncrementStat("TotalCats");
+            break;
         default:
             cats.push_back(std::make_unique<CatPedro>(200, 10));
-        break;
+            gameStats.IncrementStat("TotalCats");
+            break;
     }
 }
-//function the game UI, handles boundary also.
+
 void Game::DrawUI() const {
     DrawRectangleRounded({415, 0, 300, 600}, 0, 6, LIGHTGRAY);
     DrawText("Score", 460, 15, 40, BLACK);
     DrawRectangleRounded({425, 55, 170, 60}, 0.3, 6, PINK);
     Boundary::Draw();
 }
-//getter for score
+
 const Score& Game::GetScore() const {
     return score;
 }
-//getter for boundary
+
 Boundary Game::GetBoundary() const {
     return boundary;
 }
 
+void Game::CatsTouching(const std::unique_ptr<Cat>& cat1, const std::unique_ptr<Cat>& cat2) {
+    for (int i = 0; i < cats.size(); i++) {
+        for (int j = i+1; j < cats.size(); j++) {
+            double dx = cats[j]->getX() - cats[i]->getX();
+            double dy = cats[j]->getY() - cats[i]->getY();
+            bool collisionX = abs(dx) < (cats[i]->getRadius() + cats[j]->getRadius());
+            bool collisionY = abs(dy) < (cats[i]->getRadius() + cats[j]->getRadius());
+            if (collisionX && collisionY && cats[i]->GetIndexCat() != cats[j]->GetIndexCat()) {
+                double overlapX = (cats[i]->getRadius() + cats[j]->getRadius()) - abs(dx);
+                double overlapY = (cats[i]->getRadius() + cats[j]->getRadius()) - abs(dy);
+                if (dx > 0) {
+                    cats[i]->x -= overlapX;
+                    cats[j]->x += overlapX;
+                } else {
+                    cats[i]->x += overlapX;
+                    cats[j]->x -= overlapX;
+                }
+                if (cats[j]->y > cats[i]->y) {
+                    cats[j]->y += overlapY ;
+                    cats[i]->y -= overlapY ;
+                } else {
+                    cats[j]->y -= overlapY ;
+                    cats[i]->y += overlapY ;
+                }
+                if (cats[i]->getY() < 0) {
+                    cats[i]->y = cats[i]->getRadius();
+                }
+
+                if (cats[j]->getY() < 0) {
+                    cats[j]->y = cats[j]->getRadius();
+                }
+            }
+        }
+    }
+}

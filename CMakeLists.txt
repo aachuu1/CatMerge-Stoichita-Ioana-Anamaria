@@ -55,6 +55,10 @@ add_executable(CatMerge main.cpp
         CatHoratiu.h
         Exceptions.cpp
         Exceptions.h
+        CatFactory.cpp
+        CatFactory.h
+        TemplateClass.cpp
+        TemplateClass.h
 )
 
 target_include_directories(CatMerge SYSTEM PRIVATE ${raylib_SOURCE_DIR}/src)

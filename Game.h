@@ -4,8 +4,10 @@
 #include <memory>
 #include "Boundary.h"
 #include "Score.h"
-#include "CatPedro.h"
 #include "Combination.h"
+#include "TemplateClass.h"
+
+class GameAchievementObserver;
 
 //singleton class for game
 class Game {
@@ -15,6 +17,9 @@ private:
     Boundary boundary;
     Score score;
     std::vector<std::unique_ptr<Cat>> cats;
+    std::unique_ptr<GameAchievementObserver> achievementObserver;
+    GameStats<int> gameStats;
+    GameStats<int> catStats;
     Game();
     ~Game();
     static void CheckForInvalidKeyPress();
@@ -23,7 +28,6 @@ private:
     void UpdateCats();
     void AddNewCat();
     void DrawUI() const;
-
 
 public:
     Game(const Game&) = delete;
@@ -35,4 +39,5 @@ public:
     void Run();
     [[nodiscard]] const Score& GetScore() const;
     [[nodiscard]] Boundary GetBoundary() const;
+    void CatsTouching(const std::unique_ptr<Cat>& cat1, const std::unique_ptr<Cat>& cat2);
 };
