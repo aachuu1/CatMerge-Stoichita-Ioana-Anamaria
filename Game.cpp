@@ -15,9 +15,6 @@ public:
         if (newScore >= 3000) {
             std::cout << "Achievement Unlocked: Master Merger!" << std::endl;
         }
-        else if (newScore >= 8000) {
-            std::cout << "Achievement Unlocked: Pro Merger!" << std::endl;
-        }
     }
 };
 
