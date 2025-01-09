@@ -7,7 +7,8 @@
 class PedroCatFactory : public CatFactory {
 public:
     // creates a CatPedro object with the specified coordinates
-    [[nodiscard]] std::shared_ptr<Cat> CreateCat(int x, int y) const {
+    [[nodiscard]] std::shared_ptr<Cat> CreateCat(int x, int y) override
+    {
         return std::make_shared<CatPedro>(x, y);
     }
 };
@@ -16,7 +17,7 @@ public:
 class PandispanCatFactory : public CatFactory {
 public:
     // creates a CatPandispan object with the specified coordinates
-    [[nodiscard]] std::shared_ptr<Cat> CreateCat(int x, int y) const  {
+    [[nodiscard]] std::shared_ptr<Cat> CreateCat(int x, int y) override  {
         return std::make_shared<CatPandispan>(x, y);
     }
 };
@@ -25,7 +26,7 @@ public:
 class HoratiuCatFactory : public CatFactory {
 public:
     // creates a CatHoratiu object with the specified coordinates
-    [[nodiscard]] std::shared_ptr<Cat> CreateCat(int x, int y) const {
+    [[nodiscard]] std::shared_ptr<Cat> CreateCat(int x, int y) override {
         return std::make_shared<CatHoratiu>(x, y);
     }
 };

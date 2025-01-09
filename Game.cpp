@@ -233,7 +233,7 @@ void Game::CatsTouching(const std::unique_ptr<Cat>& cat1, const std::unique_ptr<
 
             if (collisionX && collisionY && // if collision detected
                 (cats[i]->GetIndexCat() != cats[j]->GetIndexCat() || // cats have different indices
-                (cats[i]->GetIndexCat() == 0 || cats[j]->GetIndexCat() == 0))) { // or one cat is Pedro, the biggest cat
+                 cats[j]->GetIndexCat() == 0)) { // or one cat is Pedro, the biggest cat
 
                 // adjust positions to resolve collision
                 double overlapX = (cats[i]->getRadius() + cats[j]->getRadius()) - abs(dx); // calculate x overlap
@@ -278,4 +278,4 @@ void Game::CatsTouching(const std::unique_ptr<Cat>& cat1, const std::unique_ptr<
     }
 }
 
-// collisions are not done yet, need to work on the logic
+// collisions are not done yet, need to work on the logic.
