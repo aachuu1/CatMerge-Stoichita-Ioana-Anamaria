@@ -26,7 +26,7 @@ Game* Game::instance = nullptr;
 // constructor: initializes window, font, cats, and stats
 Game::Game() {
     InitWindow(600, 600, "CatMerge");
-    SetTargetFPS(100);
+    SetTargetFPS(80);
     font = LoadFontEx("Font/monogram.ttf", 64, nullptr, 0);
     CheckFontLoaded();
     cats.push_back(std::make_unique<CatPedro>(200, 10));
@@ -277,6 +277,5 @@ void Game::CatsTouching(const std::unique_ptr<Cat>& cat1, const std::unique_ptr<
         }
     }
 }
-
 
 // collisions are not done yet, need to work on the logic

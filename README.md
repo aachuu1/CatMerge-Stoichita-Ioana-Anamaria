@@ -59,4 +59,10 @@ Jocul se baseaza pe unirea a doua pisici de acelasi timp pentru a obtine o pisic
 - [ ] tag de `git`: de exemplu `v0.3` sau `v1.0`
 
 ## Resurse
-- adăugați trimiteri către resursele externe care v-au ajutat sau pe care le-ați folosit
+https://www.raylib.com
+https://refactoring.guru/design-patterns
+https://www.youtube.com/@programmingwithnick (acest video in special https://www.youtube.com/watch?v=wVYKG_ch4yM&t=3022s)
+https://www.w3schools.com/cpp/cpp_oop.asp
+https://www.geeksforgeeks.org/object-oriented-programming-in-cpp/
+https://www.youtube.com/watch?v=iWp-mCIQgMU&list=PLVotA8ycjnCsy30WQCwVU5RrZkt4lLgY5
+https://www.geeksforgeeks.org/software-design-patterns/
