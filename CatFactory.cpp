@@ -17,7 +17,7 @@ public:
 class PandispanCatFactory : public CatFactory {
 public:
     // creates a CatPandispan object with the specified coordinates
-    [[nodiscard]] std::shared_ptr<Cat> CreateCat(int x, int y) override  {
+    [[nodiscard]] std::shared_ptr<Cat> CreateCat(int x, int y) override {
         return std::make_shared<CatPandispan>(x, y);
     }
 };
