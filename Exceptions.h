@@ -1,22 +1,32 @@
 #pragma once
 #include <exception>
-//class for invalid key exception
+
+// class for handling invalid key exceptions
 class InvalidKeyException : public std::exception {
 public:
-    InvalidKeyException()=default;
+    InvalidKeyException() = default;
+
+    // returns the error message for invalid key
     [[nodiscard]] const char* what() const noexcept override {
         return "Oh no, you pressed the wrong key!";
     }
+
+    // destructor
     ~InvalidKeyException() override = default;
 };
-//class for detecting font exception
+
+// class for handling font detection exceptions
 class FontNotDetectedException : public std::exception {
 public:
-    FontNotDetectedException()=default;
+    FontNotDetectedException() = default;
+
+    // returns the error message for missing font
     [[nodiscard]] const char* what() const noexcept override {
         return "Oh no, the font is missing!";
     }
+
+    // destructor
     ~FontNotDetectedException() override = default;
 };
 
-//all classes are derived from base class exception
+// all classes are derived from the base class 'exception'

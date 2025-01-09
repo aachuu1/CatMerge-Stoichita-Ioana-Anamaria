@@ -3,55 +3,61 @@
 #include <map>
 #include <string>
 
-template<typename T>
+template<typename t>
 class GameStats {
 private:
-    std::map<std::string, T> stats;
-    std::string gameName;
+    std::map<std::string, t> stats; // map for storing stat names and values
+    std::string gamename; // game name (default: "catmerge")
 
 public:
-    explicit GameStats(const std::string& name = "CatMerge") : gameName(name) {}
+    explicit GameStats(const std::string& name = "catmerge") : gamename(name) {} // constructor to set game name
 
-    void UpdateStat(const std::string& statName, const T& value) {
-        stats[statName] = value;
-        std::cout << "Statistica actualizata: " << statName << " = " << value << std::endl;
+    // update a stat with a new value
+    void UpdateStat(const std::string& statname, const t& value) {
+        stats[statname] = value;
+        std::cout << "statistica actualizata: " << statname << " = " << value << std::endl;
     }
-    template<typename U = T>
-    typename std::enable_if<std::is_arithmetic<U>::value>::type
-    IncrementStat(const std::string& statName, const U& amount = 1) {
-        if (stats.find(statName) == stats.end()) {
-            stats[statName] = amount;
+
+    // increment stat value (only for numeric types)
+    template<typename u = t>
+    typename std::enable_if<std::is_arithmetic<u>::value>::type
+    IncrementStat(const std::string& statname, const u& amount = 1) {
+        if (stats.find(statname) == stats.end()) {
+            stats[statname] = amount; // init stat if not found
         } else {
-            stats[statName] += amount;
+            stats[statname] += amount; // increment existing stat
         }
-        std::cout << statName << " incrementat la: " << stats[statName] << std::endl;
+        std::cout << statname << " incrementat la: " << stats[statname] << std::endl;
     }
-    T GetStat(const std::string& statName) const {
-        auto it = stats.find(statName);
+
+    // get value of a stat
+    t GetStat(const std::string& statname) const {
+        auto it = stats.find(statname);
         if (it != stats.end()) {
-            return it->second;
+            return it->second; // return stat value
         }
-        throw std::runtime_error("Statistica nu există!");
+        throw std::runtime_error("statistica nu există!"); // error if stat not found
     }
 
-    bool HasStat(const std::string& statName) const {
-        return stats.find(statName) != stats.end();
+    // check if stat exists
+    bool HasStat(const std::string& statname) const {
+        return stats.find(statname) != stats.end();
     }
 
-    void ResetStat(const std::string& statName) {
-        auto it = stats.find(statName);
+    // reset stat to default value
+    void ResetStat(const std::string& statname) {
+        auto it = stats.find(statname);
         if (it != stats.end()) {
-            it->second = T();
-            std::cout << statName << " resetat la valoarea implicită" << std::endl;
+            it->second = t(); // reset to default value
+            std::cout << statname << " resetat la valoarea implicită" << std::endl;
         }
     }
 
-    void DisplayStats() const {
-        std::cout << "\n=== Statistici " << gameName << " ===" << std::endl;
+    // display all game stats
+    void SisplayStats() const {
+        std::cout << "\n=== statistici " << gamename << " ===" << std::endl;
         for (const auto& [name, value] : stats) {
             std::cout << name << ": " << value << std::endl;
         }
-        std::cout << "==========================\n" << std::endl;
     }
 };
-
